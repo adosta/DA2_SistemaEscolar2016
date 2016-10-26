@@ -1,0 +1,44 @@
+﻿@*Esta vista tiene como obhjeto principal una lista de grupos*@
+@model List<Grupo>
+@using DA2_SistemaEscolar2016_2_.Models
+@{
+    ViewBag.Title = "listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>listar</h2>
+
+@Html.Partial("../BuscadorFormulario")
+@if (User.IsInRole("admin") || User.IsInRole("capturista"))
+{
+    @Html.ActionLink("Nuevo Grupo", "crear")
+}
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>Nombre de Grupo</th>
+        <th>Carrera</th>
+    </tr>
+    @foreach (var elemento in Model)
+    {
+        <tr>
+            <td>@elemento.nombreGrupo</td>
+            <td>@elemento.carrera</td>
+                       
+                            <td>
+                                @if (User.IsInRole("admin"))
+                                {
+@*<a href="Alumno/eliminar"><i class="glyphicon glyphicon-trash"></i></a>*@
+                                    @Html.ActionLink("Eliminar", "eliminar", new { id = elemento.grupoID })
+                                    @Html.ActionLink("Detalles", "detalles", new { id = elemento.grupoID })
+                                }
+                                @if (User.IsInRole("admin") || User.IsInRole("capturista"))
+                                {
+                                    @Html.ActionLink("Editar", "editar", new { id = elemento.grupoID })
+                                }
+                            
+        </td>
+            
+    </tr>
+    }
+</table>

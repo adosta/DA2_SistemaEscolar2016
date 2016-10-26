@@ -1,0 +1,52 @@
+﻿@*Esta vista tiene como obhjeto principal una lista de alumnos*@
+@model List<Alumno>
+@using DA2_SistemaEscolar2016_2_.Models
+
+@{
+    ViewBag.Title = "listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>listar</h2>
+
+@Html.Partial("../BuscadorFormulario")
+@if (User.IsInRole("admin") || User.IsInRole("capturista"))
+{
+    @Html.ActionLink("Nuevo alumno", "crear")
+}
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>Nombre</th>
+        <th>Apellido Paterno</th>
+        <th>Apellido Materno</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Grupo</th>
+    </tr>
+    @foreach (var elemento in Model)
+    {
+        <tr>
+            <td>@elemento.nombre</td>
+            <td>@elemento.apellidoP</td>
+            <td>@elemento.apellidoM</td>
+            <td>@elemento.fechNac.ToLongDateString()</td>
+            <td>@elemento.grupo.nombreGrupo</td>
+            
+            @if (User.IsInRole("admin"))
+            {
+                <td>
+                    @Html.ActionLink("Eliminar", "eliminar", new { id = elemento.noMatricula })
+                </td>
+            }
+
+            @if (User.IsInRole("admin") || User.IsInRole("capturista"))
+            {
+                <td>
+                    @Html.ActionLink("Editar", "editar", new { id = elemento.noMatricula })
+                </td>
+            }
+            
+
+        </tr>
+    }
+</table>

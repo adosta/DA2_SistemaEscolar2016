@@ -1,0 +1,28 @@
+﻿@model Grupo
+@using DA2_SistemaEscolar2016_2_.Models
+
+@{
+    ViewBag.Title = "crear";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>crear</h2>
+
+<form action="crear" method="post">
+    <div class="row">
+        <div class="form-group col-sm-6">
+            @Html.LabelFor(a => a.nombreGrupo)
+            @Html.EditorFor(a => a.nombreGrupo, new { htmlAttributes = new { required = "", @class = "form-control", placeholder = "Nombre del grupo" } })
+            @Html.ValidationMessageFor(a => a.nombreGrupo, "", new { @class = "error" })
+        </div>
+
+        <div class="form-group col-sm-6">
+            @Html.LabelFor(a => a.carrera)
+            @Html.EditorFor(a => a.carrera, new { htmlAttributes = new { required = "", @class = "form-control", placeholder = "Carrera" } })
+            @Html.ValidationMessageFor(a => a.carrera, "", new { @class = "error" })
+        </div>
+    </div>
+
+        <button class="btn btn-primary" type="submit">Enviar</button>
+        <p class="error">@ViewBag.MensajeError</p>
+</form>
